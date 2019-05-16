@@ -12,16 +12,16 @@ const sounds = [
     file: require("../assets/sounds/its-bigger-than-everything-you-see.mp3")
   },
   {
-    title: "Bigger, bigger",
+    title: "Bigger, bigger, bigger",
     file: require("../assets/sounds/bigger-bigger-bigger.mp3")
-  },
-  {
-    title: "Bigger, bigger 2",
-    file: require("../assets/sounds/bigger-bigger-2.mp3")
   },
   {
     title: "Oh its bigger",
     file: require("../assets/sounds/oh-its-bigger.mp3")
+  },
+  {
+    title: "Bigger, bigger 2",
+    file: require("../assets/sounds/bigger-bigger-2.mp3")
   },
   {
     title: "So much bigger",

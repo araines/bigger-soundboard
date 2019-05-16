@@ -2,6 +2,7 @@ import React from "react";
 import {
   StyleSheet,
   SafeAreaView,
+  ImageBackground,
   FlatList,
   Text,
   View,
@@ -13,24 +14,23 @@ import data from "./config/sounds";
 export default class App extends React.Component {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <SoundList />
-      </SafeAreaView>
+      <ImageBackground
+        source={require("./assets/splash.png")}
+        style={styles.backgroundImage}
+      >
+        <SafeAreaView style={styles.container}>
+          <SoundList />
+        </SafeAreaView>
+      </ImageBackground>
     );
   }
 }
-
-const playSound = async item => {
-  const sound = new Audio.Sound();
-  await sound.loadAsync(item.file);
-  await sound.playFromPositionAsync(0);
-};
 
 class SoundButton extends React.Component {
   constructor(props) {
     super(props);
     const sound = new Audio.Sound();
-    //    sound.loadAsync(require("./assets/sounds" + props.filename));
+    sound.loadAsync(props.file);
 
     this.state = { sound };
   }
@@ -41,7 +41,7 @@ class SoundButton extends React.Component {
     return (
       <TouchableHighlight onPress={this._onPress}>
         <View style={styles.box}>
-          <Text>{this.props.title}</Text>
+          <Text style={styles.text}>{this.props.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -63,12 +63,11 @@ class SoundList extends React.Component {
         <FlatList
           keyExtractor={(item, index) => item.title}
           data={data}
-          renderItem={this._item}
-          //renderItem={({ item }) => (
-          //  <SoundButton filename={item.filename} title={item.title} />
-          //)}
+          renderItem={({ item }) => (
+            <SoundButton file={item.file} title={item.title} />
+          )}
           horizontal={false}
-          numColumns={3}
+          numColumns={2}
         />
       </View>
     );
@@ -78,14 +77,18 @@ class SoundList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover"
+  },
   box: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     backgroundColor: "grey",
+    opacity: 0.7,
     margin: 5,
     borderRadius: 5,
     justifyContent: "center",
@@ -95,5 +98,11 @@ const styles = StyleSheet.create({
   flatView: {
     flex: 1,
     marginBottom: 10
+  },
+  text: {
+    color: "white",
+    fontWeight: "bold",
+    opacity: 1,
+    textAlign: "center"
   }
 });
